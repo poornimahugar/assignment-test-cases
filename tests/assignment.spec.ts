@@ -89,7 +89,7 @@ test("PL_AS05-query parameter", async ({ request}) => {
  });
  
 
-test("PL_AS07-PUT body validation", async ({ request }) => {
+test("PL_AS07-POST body validation", async ({ request }) => {
   const response = await request.post('https://reqres.in/api/users', {
     data: {
       "name": "poornima",
