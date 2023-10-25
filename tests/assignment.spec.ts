@@ -113,7 +113,7 @@ test("PL_AS07-PUT body validation", async ({ request }) => {
 
 
 test("PL_AS08-post response datatype validation", async ({ request }) => {
-  const response = await request.get('https://reqres.in/api/users/' + userid, {
+  const response = await request.get('https://reqres.in/api/users/', {
     headers: { "Accept": "application/json" }
   });
 
