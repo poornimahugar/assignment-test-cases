@@ -13,7 +13,6 @@ test("PL_AS02-get user", async ({ request}) => {
 test("PL_AS03-schema", async ({ request }) => {
   test.setTimeout(30000);
   
-  // Send an HTTP GET request
   const response = await request.get('https://reqres.in/api/users?page=2');
 
   // Check the response status code
@@ -23,23 +22,25 @@ test("PL_AS03-schema", async ({ request }) => {
   const responseBody = await response.json();
   console.log('Response:', responseBody);
 
-  // Extract the 'data' object from the response
+  // Extract the 'data' array from the response
   const data1 = responseBody.data;
   console.log('data:', data1);
   console.log('data type:', typeof data1);
 
-  // Check if 'data1' is an object
+  // Check if 'data1' is an array
   expect(data1).not.toBeNull();
-  expect(typeof data1).toBe('object');
+  expect(Array.isArray(data1)).toBe(true);
 
-  // Check the data types of specific properties within 'data1'
-  expect(typeof data1.id).toBe('number'); // Assuming 'id' is a number
-  expect(typeof data1.email).toBe('string');
-  expect(typeof data1.first_name).toBe('string');
-  expect(typeof data1.last_name).toBe('string');
-  expect(typeof data1.avatar).toBe('string');
+  // Assuming you want to check the properties of the second user object in the array
+  const secondUser = data1[1];
+
+  // Check the data types of specific properties within 'firstUser'
+  expect(typeof secondUser.id).toBe('number'); // Assuming 'id' is a number
+  expect(typeof secondUser.email).toBe('string');
+  expect(typeof secondUser.first_name).toBe('string');
+  expect(typeof secondUser.last_name).toBe('string');
+  expect(typeof secondUser.avatar).toBe('string');
 });
-
 
 test("PL_AS04-pass parameter", async ({ request}) => {
   const response=await request.get('https://reqres.in/api/users/1')
