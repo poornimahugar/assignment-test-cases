@@ -11,13 +11,19 @@ test("PL_AS02-get user", async ({ request}) => {
 
 
 test("PL_AS03-schema", async ({ request }) => {
+  test.setTimeout(30000);
+  
+  // Send an HTTP GET request
+  const response = await request.get('https://reqres.in/api/users?page=2');
 
-    test.setTimeout(30000);
-  await request.get('https://reqres.in/api/users?page=2');
-  const response = await request.fetch('https://reqres.in/api/users?page=2');
+  // Check the response status code
   expect(response.status()).toBe(200);
+
+  // Parse the response body as JSON
   const responseBody = await response.json();
   console.log('Response:', responseBody);
+
+  // Extract the 'data' object from the response
   const data1 = responseBody.data;
   console.log('data:', data1);
   console.log('data type:', typeof data1);
@@ -26,12 +32,12 @@ test("PL_AS03-schema", async ({ request }) => {
   expect(data1).not.toBeNull();
   expect(typeof data1).toBe('object');
 
-  // Check the data types of specific properties
- /* expect(typeof data1.id).toBe('string');
+  // Check the data types of specific properties within 'data1'
+  expect(typeof data1.id).toBe('number'); // Assuming 'id' is a number
   expect(typeof data1.email).toBe('string');
   expect(typeof data1.first_name).toBe('string');
   expect(typeof data1.last_name).toBe('string');
-  expect(typeof data1.avatar).toBe('string');*/
+  expect(typeof data1.avatar).toBe('string');
 });
 
 
