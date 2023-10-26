@@ -23,10 +23,12 @@ test("PL_AS03-schema", async ({ request }) => {
   console.log('Response:', responseBody);
 
   // Extract the 'data' array from the response
+  // Extract the 'data' array from the response
   const data1 = responseBody.data;
   console.log('data:', data1);
   console.log('data type:', typeof data1);
 
+  // Check if 'data1' is an array
   // Check if 'data1' is an array
   expect(data1).not.toBeNull();
   expect(Array.isArray(data1)).toBe(true);
@@ -92,6 +94,7 @@ test("PL_AS05-query parameter", async ({ request}) => {
  
 
 test("PL_AS07-POST body validation", async ({ request }) => {
+test("PL_AS07-POST body validation", async ({ request }) => {
   const response = await request.post('https://reqres.in/api/users', {
     data: {
       "name": "poornima",
@@ -115,6 +118,7 @@ test("PL_AS07-POST body validation", async ({ request }) => {
 
 
 test("PL_AS08-post response datatype validation", async ({ request }) => {
+  const response = await request.get('https://reqres.in/api/users/', {
   const response = await request.get('https://reqres.in/api/users/', {
     headers: { "Accept": "application/json" }
   });
