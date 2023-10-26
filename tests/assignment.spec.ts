@@ -13,7 +13,6 @@ test("PL_AS02-get user", async ({ request}) => {
 test("PL_AS03-schema", async ({ request }) => {
   test.setTimeout(30000);
   
-  // Send an HTTP GET request
   const response = await request.get('https://reqres.in/api/users?page=2');
 
   // Check the response status code
@@ -23,22 +22,26 @@ test("PL_AS03-schema", async ({ request }) => {
   const responseBody = await response.json();
   console.log('Response:', responseBody);
 
-  // Extract the 'data' object from the response
+  // Extract the 'data' array from the response
   const data1 = responseBody.data;
   console.log('data:', data1);
   console.log('data type:', typeof data1);
 
-  // Check if 'data1' is an object
+  // Check if 'data1' is an array
   expect(data1).not.toBeNull();
-  expect(typeof data1).toBe('object');
+  expect(Array.isArray(data1)).toBe(true);
 
-  // Check the data types of specific properties within 'data1'
-  expect(typeof data1.id).toBe('number'); // Assuming 'id' is a number
-  expect(typeof data1.email).toBe('string');
-  expect(typeof data1.first_name).toBe('string');
-  expect(typeof data1.last_name).toBe('string');
-  expect(typeof data1.avatar).toBe('string');
+  // Assuming you want to check the properties of the first user object in the array
+  const secondUser = data1[1];
+
+  // Check the data types of specific properties within 'secondUser'
+  expect(typeof secondUser.id).toBe('number'); // Assuming 'id' is a number
+  expect(typeof secondUser.email).toBe('string');
+  expect(typeof secondUser.first_name).toBe('string');
+  expect(typeof secondUser.last_name).toBe('string');
+  expect(typeof secondUser.avatar).toBe('string');
 });
+
 
 
 test("PL_AS04-pass parameter", async ({ request}) => {
@@ -88,7 +91,7 @@ test("PL_AS05-query parameter", async ({ request}) => {
  });
  
 
-test("PL_AS07-PUT body validation", async ({ request }) => {
+test("PL_AS07-POST body validation", async ({ request }) => {
   const response = await request.post('https://reqres.in/api/users', {
     data: {
       "name": "poornima",
@@ -112,7 +115,7 @@ test("PL_AS07-PUT body validation", async ({ request }) => {
 
 
 test("PL_AS08-post response datatype validation", async ({ request }) => {
-  const response = await request.get('https://reqres.in/api/users/' + userid, {
+  const response = await request.get('https://reqres.in/api/users/', {
     headers: { "Accept": "application/json" }
   });
 
@@ -154,11 +157,10 @@ test("PL_AS09-Validation of Data created", async ({ request }) => {
   // Validate the created data against your expectations.
   expect(responseBody.name).toBe("poornima");
   expect(responseBody.job).toBe("leader");
-  // Add more validation checks as needed.
 });
 
 
-test("PL_AS10-PUT validation", async ({ request }) => {
+test.only("PL_AS10-PUT validation", async ({ request }) => {
   // Ensure 'userid' is set to a valid user ID.
   userid = 1; 
 
@@ -193,7 +195,7 @@ const response = await request.put('https://reqres.in/api/users/2', {
 
 const responseBody = await response.json();
 const updatedJob = responseBody.updatedJob;
-expect(typeof updatedJob).toBe('string'); // You can replace 'string' with the expected data type
+expect(typeof updatedJob).toBe('string');
 
 });
 
