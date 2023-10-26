@@ -10,6 +10,14 @@ test("PL_AS02-get user", async ({ request}) => {
 })
 
 
+
+test("PL_AS02-get user", async ({ request}) => {
+  const response=await request.get('https://reqres.in/api/users?page=2')
+  console.log(await response.json())
+  expect(response.status()).toBe(200)
+})
+
+
 test("PL_AS03-schema", async ({ request }) => {
   test.setTimeout(30000);
   
